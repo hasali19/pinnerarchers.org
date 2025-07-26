@@ -5,3 +5,7 @@
 
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
+
+* {
+    font-family: Telex, sans-serif;
+}
