@@ -1,0 +1,41 @@
+---
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+
+import { Content as MainContent } from "../content/courses/content.md";
+import { Content as TableContent } from "../content/courses/table.md";
+---
+
+<ContentPageLayout>
+  <MainContent />
+  <div class="overflow-x-auto">
+    <TableContent />
+  </div>
+</ContentPageLayout>
+
+<style is:global>
+  .root {
+    max-width: min(100vw, 100%);
+  }
+
+  table {
+    width: 100%;
+  }
+
+  @reference "../styles/global.css";
+
+  table {
+    @apply min-w-full divide-y divide-gray-200;
+  }
+
+  th {
+    @apply px-6 py-3 text-start font-medium text-gray-500 uppercase;
+  }
+
+  tr {
+    @apply odd:bg-white even:bg-gray-100;
+  }
+
+  td {
+    @apply px-6 py-4 whitespace-nowrap font-medium text-gray-800;
+  }
+</style>

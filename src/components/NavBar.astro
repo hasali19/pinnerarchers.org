@@ -1,0 +1,66 @@
+---
+import NavBarMenuButton from "./NavBarMenuButton.astro";
+
+const menuItems = [
+  { title: "Home", path: "/" },
+  { title: "About", path: "/about" },
+  { title: "Courses", path: "/courses" },
+  { title: "Join Us", path: "/join-us" },
+  { title: "Contact", path: "/contact" },
+  { title: "Links", path: "/links" },
+];
+---
+
+<header
+  class="relative flex flex-wrap sm:justify-start sm:flex-nowrap w-full text-sm py-3 bg-green-50"
+>
+  <nav
+    class="max-w-screen-xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
+  >
+    <div class="flex items-center justify-between">
+      <a
+        class="flex-none text-xl font-semibold focus:outline-hidden focus:opacity-80"
+        href="#"
+        aria-label="Pinner Archers"
+      >
+        <span class="inline-flex items-center gap-x-4 text-2xl font-semibold">
+          <img src="/PA Logo.png" class="logo w-8" alt="Pinner Archers Logo" />
+          Pinner Archers
+        </span>
+      </a>
+      <div class="sm:hidden">
+        <NavBarMenuButton />
+      </div>
+    </div>
+    <div
+      id="hs-navbar-example"
+      class="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow sm:block"
+      aria-labelledby="hs-navbar-example-collapse"
+    >
+      <div
+        class="flex flex-col gap-5 mt-5 text-lg sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5"
+      >
+        {
+          menuItems.map(({ title, path }) => {
+            const El = Astro.url.pathname === path ? "span" : "a";
+
+            const classlist =
+              Astro.url.pathname === path
+                ? ["text-green-700", "cursor-default"]
+                : ["hover:text-green-600"];
+
+            return (
+              <El
+                class="font-medium select-none"
+                class:list={classlist}
+                href={path}
+              >
+                {title}
+              </El>
+            );
+          })
+        }
+      </div>
+    </div>
+  </nav>
+</header>
