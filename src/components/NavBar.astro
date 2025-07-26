@@ -23,7 +23,9 @@ const menuItems = [
         href="#"
         aria-label="Pinner Archers"
       >
-        <span class="inline-flex items-center gap-x-4 text-2xl font-semibold">
+        <span
+          class="inline-flex items-center gap-x-4 text-2xl md:text-3xl font-semibold"
+        >
           <img src="/PA Logo.png" class="logo w-8" alt="Pinner Archers Logo" />
           Pinner Archers
         </span>
@@ -38,7 +40,7 @@ const menuItems = [
       aria-labelledby="hs-navbar-example-collapse"
     >
       <div
-        class="flex flex-col gap-5 mt-5 text-lg sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5"
+        class="flex flex-col gap-5 mt-5 text-lg sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5 md:text-xl"
       >
         {
           menuItems.map(({ title, path }) => {
