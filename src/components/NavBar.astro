@@ -43,12 +43,13 @@ const menuItems = [
       >
         {
           menuItems.map(({ title, path }) => {
-            const El = Astro.url.pathname === path ? "span" : "a";
+            const isActive =
+              Astro.url.pathname === path || Astro.url.pathname === path + "/";
 
-            const classlist =
-              Astro.url.pathname === path
-                ? ["text-green-700", "cursor-default"]
-                : ["hover:text-green-600"];
+            const El = isActive ? "span" : "a";
+            const classlist = isActive
+              ? ["text-green-700", "cursor-default"]
+              : ["hover:text-green-600"];
 
             return (
               <El
