@@ -1,8 +1,8 @@
 ---
 layout: ../layouts/ContentPageLayout.astro
+title: "Join Us"
+columns: 1
 ---
-
-# Join Us
 
 To join Pinner Archers archery club you need to have a completed AGB approved beginners course or have been a member of another archery club. Membership to Pinner Archers is subject to an evaluation of competence of shooting. Either by way of demonstration or verbal dialogue of certification of completion of a recognised beginners course.
 

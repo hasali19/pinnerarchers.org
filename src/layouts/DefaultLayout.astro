@@ -1,0 +1,28 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<BaseLayout>
+  <div>
+    <img
+      src="/archery-outdoors.jpg"
+      class="w-full max-h-[500px] object-cover object-center"
+    />
+    <div class="w-screen max-w-screen-xl m-auto my-6 px-4 lg:px-0">
+      {
+        title && (
+          <div class="py-8">
+            <h1 class="text-5xl">{title}</h1>
+          </div>
+        )
+      }
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

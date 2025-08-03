@@ -1,5 +1,3 @@
-# Courses
-
 Our beginners course is held over 5 consecutive Monday evenings (7.45pm to 9.45) in June at Tithe Farm Sports & Social Club, 151 Rayners Lane, Harrow, Middlesex. HA2 0AH
 
 Depending on demand we can also offer an outdoor course on Sunday Afternoons (2pm to 4pm) in June at Metropolitan Bushey Sports Club, Aldenham Road, Bushey. Herts. WD23 2TR

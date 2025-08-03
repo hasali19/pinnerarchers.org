@@ -1,11 +1,21 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
+import DefaultLayout from "./DefaultLayout.astro";
+
+const { title, columns } = Astro.props.frontmatter || {};
 ---
 
-<BaseLayout>
-  <div class="w-screen max-w-screen-xl m-auto my-6 px-4 lg:px-0 prose-lg">
-    <div class="bg-white p-6 rounded-4xl">
-      <slot />
-    </div>
+<DefaultLayout title={title}>
+  <div class="prose-lg" style={`column-count: ${columns || 2};`}>
+    <slot />
   </div>
-</BaseLayout>
+</DefaultLayout>
+
+<style is:global>
+  .prose-lg p:first-child {
+    margin-top: 0;
+  }
+
+  .prose-lg p:last-child {
+    margin-bottom: 0;
+  }
+</style>

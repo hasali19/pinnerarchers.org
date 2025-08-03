@@ -1,16 +1,18 @@
 ---
-import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
 
 import { Content as MainContent } from "../content/courses/content.md";
 import { Content as TableContent } from "../content/courses/table.md";
 ---
 
-<ContentPageLayout>
-  <MainContent />
-  <div class="overflow-x-auto">
+<DefaultLayout title="Courses">
+  <div class="prose-lg md:columns-2">
+    <MainContent />
+  </div>
+  <div class="mt-8 overflow-x-auto">
     <TableContent />
   </div>
-</ContentPageLayout>
+</DefaultLayout>
 
 <style is:global>
   table {

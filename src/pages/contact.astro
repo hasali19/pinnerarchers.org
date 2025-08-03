@@ -1,46 +1,53 @@
 ---
-import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
 ---
 
-<ContentPageLayout>
-  <h1>Contact Us</h1>
-  <p>
-    For any enquiries, drop us an email at
-    <a href="mailto:info@pinnerarchers.org">info@pinnerarchers.org</a>.
-  </p>
-  <p>See below for our shooting locations.</p>
-  <h2>Indoors</h2>
-  <p>
-    Tithe Farm Sports & Social Club<br />
-    151 Rayners Lane<br />
-    Harrow<br />
-    HA2 0XH
-  </p>
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4959.763965785833!2d-0.364903!3d51.570397!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876133a683c613b%3A0x3e17e5b602b1dcd6!2sTithe%20Farm%20Sports%20%26%20Social%20Club!5e0!3m2!1sen!2suk!4v1753565139260!5m2!1sen!2suk"
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"
-  >
-  </iframe>
-  <h2>Outdoors</h2>
-  <p>
-    Metropolitan Sports Club<br />
-    Aldenham Road<br />
-    Bushey<br />
-    Herts WD23 2TR
-  </p>
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4950.032703369775!2d-0.365833!3d51.659537!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761539d726b93f%3A0x282dd478fd83d0dd!2sMetropolitan%20Bushey!5e0!3m2!1sen!2suk!4v1753565295191!5m2!1sen!2suk"
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"
-    class="w-full"
-  >
-  </iframe>
-</ContentPageLayout>
+<DefaultLayout title="Contact Us">
+  <div class="prose-lg">
+    <p>
+      For any enquiries, drop us an email at
+      <a href="mailto:info@pinnerarchers.org">info@pinnerarchers.org</a>.
+    </p>
+    <p>See below for our shooting locations.</p>
+  </div>
+  <div class="mt-8 grid gap-8 md:grid-cols-2 md:gap-0">
+    <div class="prose-lg">
+      <h2>Indoors</h2>
+      <p>
+        Tithe Farm Sports & Social Club<br />
+        151 Rayners Lane<br />
+        Harrow<br />
+        HA2 0XH
+      </p>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4959.763965785833!2d-0.364903!3d51.570397!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876133a683c613b%3A0x3e17e5b602b1dcd6!2sTithe%20Farm%20Sports%20%26%20Social%20Club!5e0!3m2!1sen!2suk!4v1753565139260!5m2!1sen!2suk"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      >
+      </iframe>
+    </div>
+    <div class="prose-lg">
+      <h2>Outdoors</h2>
+      <p>
+        Metropolitan Sports Club<br />
+        Aldenham Road<br />
+        Bushey<br />
+        Herts WD23 2TR
+      </p>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4950.032703369775!2d-0.365833!3d51.659537!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761539d726b93f%3A0x282dd478fd83d0dd!2sMetropolitan%20Bushey!5e0!3m2!1sen!2suk!4v1753565295191!5m2!1sen!2suk"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="w-full"
+      >
+      </iframe>
+    </div>
+  </div>
+</DefaultLayout>
 
 <style>
   iframe {
