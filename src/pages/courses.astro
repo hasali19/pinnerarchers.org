@@ -5,11 +5,8 @@ import { Content as MainContent } from "../content/courses/content.md";
 ---
 
 <DefaultLayout title="Courses" image="/target-3.jpg">
-  <div class="prose-lg md:columns-2">
-    <MainContent />
-  </div>
-  <h2 class="my-4 text-3xl">Beginners Courses</h2>
-  <div class="mt-4 flex flex-col md:flex-row gap-4">
+  <!-- <h2 class="my-4 text-3xl">Beginners Courses</h2> -->
+  <div class="flex flex-col md:flex-row gap-4">
     <div class="bg-green-50 p-4 rounded-2xl md:flex-1">
       <table>
         <tr>
@@ -53,6 +50,9 @@ import { Content as MainContent } from "../content/courses/content.md";
   </div>
   <div class="mt-2">
     <small>* With family discount</small>
+  </div>
+  <div class="mt-8 prose-lg md:columns-2">
+    <MainContent />
   </div>
 </DefaultLayout>
 
