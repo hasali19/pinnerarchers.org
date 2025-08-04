@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/ContentPageLayout.astro
 title: "Join Us"
+image: "/archers-2.jpg"
 columns: 1
 ---
 

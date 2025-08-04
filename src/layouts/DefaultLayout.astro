@@ -3,15 +3,16 @@ import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
   title?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
+const { title, image } = Astro.props;
 ---
 
 <BaseLayout>
   <div>
     <img
-      src="/archers-1.jpg"
+      src={image ?? "/archers-1.jpg"}
       class="w-full max-h-[500px] object-cover object-center"
     />
     <div class="w-screen max-w-screen-xl m-auto my-6 px-4 lg:px-0">
