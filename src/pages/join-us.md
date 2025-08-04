@@ -15,10 +15,10 @@ Pinner Archers Club fees run from 1st September to 31st August and include affil
 
 Membership of Pinner Archers archery club is conditional on the applicant being a current member of the Tithe Farm Sports & Social Club. Once approved the applicant(s) can submit a membership form to Pinner Archers with the appropriate fee.
 
-Pinner Archers Club Fees 2024-2025\
-Adults £115\
-Juniors (under 21) £65\
-Associate (excl. AGB) £55\
+Pinner Archers Club Fees 2025-2026\
+Adults £125\
+Juniors (under 21) £70\
+Associate (excl. AGB) £60\
 Joining Fee (1st Year) £15\*
 
 <small>\*Beginners completing the course and wishing to become members of Pinner Archers will not be required to pay the joining fee.</small>
