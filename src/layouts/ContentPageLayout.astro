@@ -5,7 +5,10 @@ const { title, columns } = Astro.props.frontmatter || {};
 ---
 
 <DefaultLayout title={title}>
-  <div class="prose-lg" style={`column-count: ${columns || 2};`}>
+  <div
+    class="prose-lg md:columns-[var(--columns)]"
+    style={`--columns: ${columns || 2};`}
+  >
     <slot />
   </div>
 </DefaultLayout>
