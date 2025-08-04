@@ -4,7 +4,7 @@ Depending on demand we can also offer an outdoor course on Sunday Afternoons (2p
 
 The course is open to Adults and Children over age of 10. Children must be accompanied by a responsible adult and they must be present throughout.
 
-\*There is a family discount for additional members of the same family living at the same address (see below).
+_There is a family discount for additional members of the same family living at the same address (see below)._
 
 All necessary equipment is provided.
 
