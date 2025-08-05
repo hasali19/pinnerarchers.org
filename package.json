@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@schedule-x/calendar": "^2.36.0",
+    "@schedule-x/event-modal": "^2.36.0",
+    "@schedule-x/ical": "^2.36.0",
+    "@schedule-x/theme-default": "^2.36.0",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.12.3",
     "preline": "^3.1.0",

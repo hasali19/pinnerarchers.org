@@ -8,5 +8,14 @@ export default defineConfig({
   vite: {
     // @ts-expect-error
     plugins: [tailwindcss()],
+    server: {
+      proxy: {
+        "/calendar.ics": {
+          target: "https://calendar.google.com",
+          changeOrigin: true,
+          rewrite: () => process.env.PA_CALENDAR_PATH ?? "",
+        },
+      },
+    },
   },
 });

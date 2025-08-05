@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <div id="calendar" class="w-full max-w-screen-xl mx-auto my-4"></div>
+</BaseLayout>
+
+<script>
+  import {
+    createCalendar,
+    createViewMonthGrid,
+    createViewList,
+  } from "@schedule-x/calendar";
+  import "@schedule-x/theme-default/dist/index.css";
+  import { createEventModalPlugin } from "@schedule-x/event-modal";
+  import { createIcalendarPlugin } from "@schedule-x/ical";
+
+  const data = await (async () => {
+    const res = await fetch("/calendar.ics");
+    return await res.text();
+  })();
+
+  const eventModal = createEventModalPlugin();
+
+  const calendar = createCalendar({
+    views: [createViewMonthGrid(), createViewList()],
+    datePicker: {
+      disabled: true,
+    },
+    plugins: [
+      eventModal,
+      createIcalendarPlugin({
+        data,
+      }),
+    ],
+  });
+
+  const container = document.getElementById("calendar");
+  if (container) {
+    calendar.render(container);
+  }
+</script>
