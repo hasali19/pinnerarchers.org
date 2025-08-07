@@ -7,12 +7,13 @@ import DefaultLayout from "../layouts/DefaultLayout.astro";
 <DefaultLayout title="Join Us" image="/target-3.jpg">
   <div class="prose-lg">
     <p>
-      To join Pinner Archers archery club you need to have completed an AGB
+      To join Pinner Archers archery club you must have completed an AGB
       approved beginners course (see our
       <Link href="/courses">beginner courses</Link>) or have been a member of
-      another archery club. Membership to Pinner Archers is subject to an
-      evaluation of competence at shooting; this may be by way of demonstration
-      or certification indicating completion of a recognised beginners course.
+      another archery club. If you completed a beginners course elsewhere,
+      membership will be subject to an evaluation of competence at shooting;
+      this may be by way of demonstration or certification indicating completion
+      of a recognised beginners course.
     </p>
     <p>Our membership is divided in two parts.</p>
     <div class="flex flex-col gap-4 md:flex-row">
@@ -29,16 +30,28 @@ import DefaultLayout from "../layouts/DefaultLayout.astro";
           Club. Once approved the applicant(s) can submit a membership form to
           Pinner Archers with the appropriate fee.
         </p>
-        <p>
-          Pinner Archers Club Fees 2025-2026<br />
-          Adults £125<br />
-          Juniors (under 21) £70<br />
-          Associate (excl. AGB) £60<br />
-          Joining Fee (1st Year) £15*
-        </p>
+        <strong>Pinner Archers Club Fees 2025-2026</strong>
+        <table class="my-2">
+          <tr>
+            <td>Adults</td>
+            <td>£125</td>
+          </tr>
+          <tr>
+            <td>Juniors (under 21)</td>
+            <td>£70</td>
+          </tr>
+          <tr>
+            <td>Associate (excl. AGB)</td>
+            <td>£60</td>
+          </tr>
+          <tr>
+            <td>Joining Fee (1st Year)</td>
+            <td>£15*</td>
+          </tr>
+        </table>
         <small>
-          *Beginners completing the course and wishing to become members of
-          Pinner Archers will not be required to pay the joining fee.
+          *Beginners completing a course and wishing to become members of Pinner
+          Archers will not be required to pay the joining fee.
         </small>
       </div>
       <div class="bg-green-50 p-4 rounded-2xl md:flex-1">
@@ -48,13 +61,25 @@ import DefaultLayout from "../layouts/DefaultLayout.astro";
           Pinner Archers committee member and the appropriate fee to a TFSSC
           committee member or at the bar (on ground floor).
         </p>
-        <p>
-          Tithe Farm Sports & Social Club Fees<br />
-          Single £45<br />
-          Joint £85<br />
-          Junior (under 18) £35<br />
-          OAP £25
-        </p>
+        <strong>Tithe Farm Sports & Social Club Fees</strong>
+        <table class="my-2">
+          <tr>
+            <td>Single</td>
+            <td>£45</td>
+          </tr>
+          <tr>
+            <td>Joint</td>
+            <td>£85</td>
+          </tr>
+          <tr>
+            <td>Junior (under 18)</td>
+            <td>£35</td>
+          </tr>
+          <tr>
+            <td>OAP</td>
+            <td>£25</td>
+          </tr>
+        </table>
         <p>
           The fees are payable to the Tithe Farm Sports & Social Club treasurer.
         </p>
@@ -67,24 +92,53 @@ import DefaultLayout from "../layouts/DefaultLayout.astro";
     </p>
     <div class="flex flex-col gap-4 md:flex-row">
       <div class="bg-green-50 p-4 rounded-2xl md:flex-1">
-        <h3>Shooting Fees at Tithe Farm Indoor Range</h3>
-        <p>
-          Members of Pinner Archers no shooting fee required.<br />
-          Visiting Adult or Junior £3 (with proof of AGB membership)
-        </p>
+        <h3>Tithe Farm Indoor Range</h3>
+        <table class="my-2">
+          <tr>
+            <td>Members</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td>Visiting Adult</td>
+            <td>£3 (with proof of AGB membership)</td>
+          </tr>
+          <tr>
+            <td>Visiting Junior</td>
+            <td>£3 (with proof of AGB membership)</td>
+          </tr>
+        </table>
       </div>
       <div class="bg-green-50 p-4 rounded-2xl md:flex-1">
-        <h3>Shooting Fees at Metropolitan Bushey Sports Club Outdoor Range</h3>
-        <p>
-          Members of Pinner Archers no shooting fee required.<br />
-          Visiting Adult £5 (with proof of AGB membership)<br />
-          Visiting Junior £3 (with proof of AGB membership)
-        </p>
-        <p>
-          NB: Shooting Fees when applicable at Tithe Farm and Metropolitan
-          Bushey Sports Club ranges are to be paid to Pinner Archers.
-        </p>
+        <h3>Metropolitan Bushey Sports Club Outdoor Range</h3>
+        <table class="my-2">
+          <tr>
+            <td>Members</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td>Visiting Adult</td>
+            <td>£5 (with proof of AGB membership)</td>
+          </tr>
+          <tr>
+            <td>Visiting Junior</td>
+            <td>£3 (with proof of AGB membership)</td>
+          </tr>
+        </table>
       </div>
     </div>
+    <p>
+      Shooting Fees when applicable at Tithe Farm and Metropolitan Bushey Sports
+      Club ranges are to be paid to Pinner Archers.
+    </p>
   </div>
 </DefaultLayout>
+
+<style>
+  td {
+    padding: 4px 0px;
+  }
+
+  td:first-child {
+    padding-right: calc(var(--spacing) * 4);
+  }
+</style>
