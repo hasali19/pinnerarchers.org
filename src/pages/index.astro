@@ -1,14 +1,29 @@
 ---
+import { getImage, Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import logo from "../assets/PA Logo.png";
+import banner from "../assets/cropped-banner-1.jpg";
+import imgArchers1 from "../assets/archers-1.jpg";
+import imgTarget1 from "../assets/target-1.jpg";
+import imgTarget2 from "../assets/target-2.jpg";
+import grass from "../assets/grass.jpg";
+
+const optBanner = await getImage({ src: banner });
+const optGrass = await getImage({ src: grass });
 ---
 
 <BaseLayout>
   <section
-    class="bg-center bg-cover bg-no-repeat bg-[url('/cropped-banner-1.jpg')] bg-gray-300 bg-blend-multiply"
+    class="bg-center bg-cover bg-no-repeat bg-(image:--background-image) bg-gray-300 bg-blend-multiply"
+    style={{ "--background-image": `url(${optBanner.src})` }}
   >
     <div class="flex flex-col py-24">
       <div class="m-auto">
-        <img src="/PA Logo.png" class="w-[200px] lg:w-[300px]" />
+        <Image
+          src={logo}
+          alt="Pinner Archers Logo"
+          class="w-[200px] lg:w-[300px]"
+        />
       </div>
       <div class="px-4 mx-auto text-center">
         <h1
@@ -23,7 +38,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="py-[40px]">
     <div class="flex align-center max-w-screen-xl m-auto">
       <div class="m-auto hidden lg:block">
-        <img src="/target-1.jpg" class="w-[600px] rounded-xl" />
+        <Image src={imgTarget1} alt="" class="w-[600px] rounded-xl" />
       </div>
       <div class="flex-1 flex flex-col justify-center m-8">
         <h2 class="text-4xl my-2 font-bold">About the Club</h2>
@@ -53,7 +68,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </section>
 
   <section
-    class="py-[40px] bg-[url('/grass.jpg')] bg-gray-400 bg-blend-multiply text-neutral-200"
+    class={`py-[40px] bg-(image:--background-image) bg-gray-400 bg-blend-multiply text-neutral-200`}
+    style={{ "--background-image": `url(${optGrass.src})` }}
   >
     <div class="flex align-center max-w-screen-xl m-auto">
       <div class="flex-1 flex flex-col justify-center m-8">
@@ -80,7 +96,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </div>
       </div>
       <div class="m-auto hidden lg:block">
-        <img src="/archers-1.jpg" class="w-[600px] rounded-xl" />
+        <Image src={imgArchers1} alt="" class="w-[600px] rounded-xl" />
       </div>
     </div>
   </section>
@@ -88,7 +104,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="py-[40px]">
     <div class="flex align-center max-w-screen-xl m-auto">
       <div class="m-auto hidden lg:block">
-        <img src="/target-2.jpg" class="w-[600px] rounded-xl" />
+        <Image src={imgTarget2} alt="" class="w-[600px] rounded-xl" />
       </div>
       <div class="flex-1 flex flex-col justify-center m-8">
         <h2 class="text-4xl my-2 font-bold">Join Us</h2>

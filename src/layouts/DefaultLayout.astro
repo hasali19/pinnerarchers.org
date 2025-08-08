@@ -1,9 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "./BaseLayout.astro";
+import { ImageMetadata } from "astro";
+import imgArchers1 from "../assets/archers-1.jpg";
 
 interface Props {
   title?: string;
-  image?: string;
+  image?: ImageMetadata;
 }
 
 const { title, image } = Astro.props;
@@ -11,8 +14,9 @@ const { title, image } = Astro.props;
 
 <BaseLayout>
   <div>
-    <img
-      src={image ?? "/archers-1.jpg"}
+    <Image
+      src={image ?? imgArchers1}
+      alt=""
       class="w-full max-h-[500px] object-cover object-center"
     />
     <div class="w-screen max-w-screen-xl m-auto my-6 px-4 lg:px-0">

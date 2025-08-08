@@ -1,5 +1,7 @@
 ---
 import NavBarMenuButton from "./NavBarMenuButton.astro";
+import logo from "../assets/PA Logo.png";
+import { Image } from "astro:assets";
 
 const menuItems = [
   { title: "Home", path: "/" },
@@ -27,8 +29,8 @@ const menuItems = [
           <span
             class="inline-flex items-center gap-x-4 text-2xl md:text-3xl font-semibold"
           >
-            <img
-              src="/PA Logo.png"
+            <Image
+              src={logo}
               class="logo w-8 md:w-14"
               alt="Pinner Archers Logo"
             />
