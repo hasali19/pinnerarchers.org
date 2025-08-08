@@ -4,9 +4,11 @@ import compressor from "astro-compressor";
 
 import tailwindcss from "@tailwindcss/vite";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [compressor()],
+  integrations: [compressor(), react()],
   vite: {
     // @ts-expect-error
     plugins: [tailwindcss()],

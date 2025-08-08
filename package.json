@@ -9,14 +9,17 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@schedule-x/calendar": "^2.36.0",
-    "@schedule-x/event-modal": "^2.36.0",
-    "@schedule-x/ical": "^2.36.0",
-    "@schedule-x/theme-default": "^2.36.0",
+    "@astrojs/react": "^4.3.0",
     "@tailwindcss/vite": "^4.1.11",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
     "astro": "^5.12.8",
     "astro-compressor": "^1.1.2",
+    "date-fns": "^4.1.0",
+    "ical.js": "^2.2.1",
     "preline": "^3.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
