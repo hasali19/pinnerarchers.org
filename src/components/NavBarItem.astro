@@ -1,0 +1,86 @@
+---
+interface Link {
+  title: string;
+  path: string;
+}
+
+interface Submenu {
+  title: string;
+  items: Link[];
+}
+
+type Props = Link | Submenu;
+---
+
+<>
+  {
+    "items" in Astro.props
+      ? (() => {
+          const { title, items } = Astro.props;
+          return (
+            <div class="hs-dropdown [--strategy:static] sm:[--strategy:fixed] [--adaptive:none] sm:[--adaptive:adaptive]">
+              <button
+                id="
+          hs-navbar-example-dropdown"
+                type="button"
+                class="hs-dropdown-toggle flex items-center w-full hover:text-green-600 font-medium cursor-pointer"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-label="Mega Menu"
+              >
+                {title}
+                <svg
+                  class="hs-dropdown-open:-rotate-180 sm:hs-dropdown-open:rotate-0 duration-300 ms-1 shrink-0 size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+              <div
+                class="hs-dropdown-menu transition-[opacity,margin] ease-in-out duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-48 z-10 bg-white sm:shadow-md rounded-lg p-1 space-y-1 before:absolute top-full sm:border border-gray-200 before:-top-5 before:start-0 before:w-full before:h-5 hidden"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="hs-navbar-example-dropdown"
+              >
+                {items.map(({ title, path }) => (
+                  <a
+                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100"
+                    href={path}
+                  >
+                    {title}
+                  </a>
+                ))}
+              </div>
+            </div>
+          );
+        })()
+      : (() => {
+          const { title, path } = Astro.props;
+          const isActive =
+            Astro.url.pathname === path || Astro.url.pathname === path + "/";
+
+          const El = isActive ? "span" : "a";
+          const classlist = isActive
+            ? ["text-green-700", "cursor-default"]
+            : ["hover:text-green-600"];
+
+          return (
+            <El
+              class="font-medium select-none"
+              class:list={classlist}
+              href={path}
+            >
+              {title}
+            </El>
+          );
+        })()
+  }
+</>

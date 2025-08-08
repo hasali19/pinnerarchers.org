@@ -2,11 +2,15 @@
 import NavBarMenuButton from "./NavBarMenuButton.astro";
 import logo from "../assets/PA Logo.png";
 import { Image } from "astro:assets";
+import NavBarItem from "./NavBarItem.astro";
 
 const menuItems = [
   { title: "Home", path: "/" },
   { title: "About", path: "/about" },
-  { title: "Calendar", path: "/calendar" },
+  {
+    title: "Members",
+    items: [{ title: "Calendar", path: "/members/calendar" }],
+  },
   { title: "Courses", path: "/courses" },
   { title: "Contact Us", path: "/contact" },
   { title: "Join Us", path: "/join-us" },
@@ -49,26 +53,7 @@ const menuItems = [
         <div
           class="flex flex-col gap-5 mt-5 text-lg sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5 md:text-xl"
         >
-          {
-            menuItems.map(({ title, path }) => {
-              const isActive =
-                Astro.url.pathname === path ||
-                Astro.url.pathname === path + "/";
-              const El = isActive ? "span" : "a";
-              const classlist = isActive
-                ? ["text-green-700", "cursor-default"]
-                : ["hover:text-green-600"];
-              return (
-                <El
-                  class="font-medium select-none"
-                  class:list={classlist}
-                  href={path}
-                >
-                  {title}
-                </El>
-              );
-            })
-          }
+          {menuItems.map((item) => <NavBarItem {...item} />)}
         </div>
       </div>
     </nav>
