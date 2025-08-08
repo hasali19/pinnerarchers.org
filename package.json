@@ -14,7 +14,7 @@
     "@schedule-x/ical": "^2.36.0",
     "@schedule-x/theme-default": "^2.36.0",
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.12.3",
+    "astro": "^5.12.8",
     "astro-compressor": "^1.1.2",
     "preline": "^3.1.0",
     "tailwindcss": "^4.1.11"
