@@ -50,3 +50,7 @@ jobs:
           TARGET: ${{ secrets.REMOTE_TARGET }}/www
           SCRIPT_BEFORE: |
             rm -rf ${{ secrets.REMOTE_TARGET }}/www
+          SCRIPT_AFTER: |
+            cd ${{ secrets.REMOTE_TARGET }}
+            docker compose restart
+          SCRIPT_AFTER_REQUIRED: true
