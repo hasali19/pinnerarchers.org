@@ -215,6 +215,15 @@ function MonthViewEvent({ e }: { e: ICAL.Event }) {
   const textPrimary = isEnded ? "text-gray-500" : "";
   const textSecondary = isEnded ? "text-gray-400" : "text-gray-800";
 
+  let shortLocation;
+  if (e.location.includes("Metropolitan Bushey")) {
+    shortLocation = "Met";
+  } else if (e.location.includes("Tithe Farm")) {
+    shortLocation = "TFSC";
+  } else {
+    shortLocation = "Away";
+  }
+
   return (
     <>
       <button
@@ -230,10 +239,7 @@ function MonthViewEvent({ e }: { e: ICAL.Event }) {
               {e.summary}
             </div>
             <div className={`text-xs ${textSecondary} whitespace-nowrap`}>
-              {format(startDate, "h:mm a")} •{" "}
-              {e.location.match(/(Metropolitan Bushey)|(Tithe Farm)/)
-                ? "Home"
-                : "Away"}
+              {format(startDate, "h:mm a")} • {shortLocation}
             </div>
           </div>
         </div>
