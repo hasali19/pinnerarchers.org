@@ -2,11 +2,12 @@
 import { getImage, Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import logo from "../assets/PA Logo.png";
-import banner from "../assets/cropped-banner-1.jpg";
+import banner from "../assets/target-3.jpg";
 import imgArchers1 from "../assets/archers-1.jpg";
 import imgTarget1 from "../assets/target-1.jpg";
 import imgTarget2 from "../assets/target-2.jpg";
 import grass from "../assets/grass.jpg";
+import Link from "../components/Link.astro";
 
 const optBanner = await getImage({ src: banner });
 const optGrass = await getImage({ src: grass });
@@ -27,7 +28,7 @@ const optGrass = await getImage({ src: grass });
       </div>
       <div class="px-4 mx-auto text-center">
         <h1
-          class="my-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-6xl lg:text-8xl text-shadow-lg"
+          class="my-4 text-4xl font-extrabold text-white md:text-6xl lg:text-8xl text-shadow-lg"
         >
           Welcome to Pinner Archers
         </h1>
@@ -41,18 +42,17 @@ const optGrass = await getImage({ src: grass });
         <Image src={imgTarget1} alt="" class="w-[600px] rounded-xl" />
       </div>
       <div class="flex-1 flex flex-col justify-center m-8">
-        <h2 class="text-4xl my-2 font-bold">About the Club</h2>
-        <p class="my-2 text-xl">
+        <h2 class="text-4xl my-4 font-bold">About the Club</h2>
+        <p class="my-4 text-lg md:text-xl">
           Pinner Archers is based at Tithe Farm Sports & Social Club, where we
-          shoot indoors on Monday evenings from 7.30pm. The indoor range allows
-          20yds shooting. When the hall is not available on Mondays, the
-          shooting night may be moved to Thursdays.
+          shoot indoors on Monday evenings from 7.30pm. When the hall is not
+          available on Mondays, the shooting night may be moved to Thursdays.
         </p>
-        <p class="my-2 text-xl">
-          Outdoor shooting takes place on Sunday afternoons 2pm to 4pm from May
-          until September (& once a month from October until April 1pm to 3pm)
-          at our shooting grounds at Metropolitan Bushey Sports Ground, Aldenham
-          Rd, Bushey. The outdoor range allows shooting distances of up to 70m.
+        <p class="my-4 text-lg md:text-xl">
+          Outdoor shooting takes place at our shooting grounds at Metropolitan
+          Bushey Sports Ground. We usually shoot on Sunday afternoons from 2pm
+          to 4pm, moving an hour earlier between October and April. The outdoor
+          range allows shooting distances of up to 70m.
         </p>
         <div class="my-4">
           <a
@@ -68,19 +68,19 @@ const optGrass = await getImage({ src: grass });
   </section>
 
   <section
-    class={`py-[40px] bg-(image:--background-image) bg-gray-400 bg-blend-multiply text-neutral-200`}
+    class={`py-[40px] bg-(image:--background-image) bg-gray-500 bg-blend-multiply text-neutral-200`}
     style={{ "--background-image": `url(${optGrass.src})` }}
   >
     <div class="flex align-center max-w-screen-xl m-auto">
       <div class="flex-1 flex flex-col justify-center m-8">
-        <h2 class="text-4xl my-2 font-bold">Beginner Courses</h2>
-        <p class="my-2 text-xl">
+        <h2 class="text-4xl my-4 font-bold">Beginner Courses</h2>
+        <p class="my-4 text-lg md:text-xl">
           We offer a beginners course for anyone interested in trying out
           archery. This is typically held over 5 consecutive weeks in June at
           Tithe Farm Sports & Social Club, with the option to run a course at
           our outdoor range depending on demand.
         </p>
-        <p class="my-2 text-xl">
+        <p class="my-4 text-lg md:text-xl">
           The course is open to both adults and children over the age of 10.
           Children must be accompanied by a responsible adult present throughout
           the session.
@@ -107,15 +107,17 @@ const optGrass = await getImage({ src: grass });
         <Image src={imgTarget2} alt="" class="w-[600px] rounded-xl" />
       </div>
       <div class="flex-1 flex flex-col justify-center m-8">
-        <h2 class="text-4xl my-2 font-bold">Join Us</h2>
-        <p class="my-2 text-xl">
-          To join Pinner Archers archery club you need to have completed an AGB
+        <h2 class="text-4xl my-4 font-bold">Join Us</h2>
+        <p class="my-4 text-lg md:text-xl">
+          Pinner Archers welcomes new members who have completed an Archery GB
           approved beginners course (see our
-          <a href="/courses">beginner courses</a>) or have been a member of
-          another archery club. Membership to Pinner Archers is subject to an
-          evaluation of competence at shooting; this may be by way of
-          demonstration or certification indicating completion of a recognised
-          beginners course.
+          <Link href="/courses">beginner courses</Link>) or have been a member
+          of another club. Reduced rates are available for juniors. All members
+          enjoy free shooting at both indoor and outdoor ranges, while visiting
+          archers pay a small fee per session. For details on joining and fees,
+          click the link below or contact us at <Link
+            href="mailto:info@pinnerarchers.org">info@pinnerarchers.org</Link
+          >.
         </p>
         <div class="my-4">
           <a
@@ -123,7 +125,7 @@ const optGrass = await getImage({ src: grass });
             href="/join-us"
             class="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
           >
-            Find out More
+            How to Join
           </a>
         </div>
       </div>
