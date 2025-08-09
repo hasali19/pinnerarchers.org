@@ -9,13 +9,26 @@ import "../styles/global.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Pinner Archers</title>
+    <meta name="description" content="Pinner Archers" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Telex&display=swap"
       rel="stylesheet"
     />
+
+    <meta property="og:url" content={new URL(Astro.url, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pinner Archers" />
+    <meta
+      property="og:description"
+      content="A target archery club in Pinner and Bushey"
+    />
+    <meta property="og:image" content={new URL("/favicon.png", Astro.site)} />
   </head>
 
   <body class="min-h-screen">
