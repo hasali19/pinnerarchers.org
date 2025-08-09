@@ -9,6 +9,7 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   integrations: [compressor(), react()],
+  site: process.env.ASTRO_SITE,
   vite: {
     // @ts-expect-error
     plugins: [tailwindcss()],

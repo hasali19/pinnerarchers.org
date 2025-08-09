@@ -18,7 +18,9 @@ jobs:
       - name: Checkout git repo
         uses: actions/checkout@v4
 
-      - run: |
+      - env:
+          ASTRO_SITE: "https://staging.pinnerarchers.org"
+        run: |
           npm install
           npm run build
 
@@ -47,9 +49,9 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "./dist/"
-          TARGET: ${{ secrets.REMOTE_TARGET }}/www
+          TARGET: ${{ secrets.REMOTE_TARGET }}/www/stg
           SCRIPT_BEFORE: |
-            rm -rf ${{ secrets.REMOTE_TARGET }}/www
+            rm -rf ${{ secrets.REMOTE_TARGET }}/www/stg
           SCRIPT_AFTER: |
             cd ${{ secrets.REMOTE_TARGET }}
             docker compose restart
