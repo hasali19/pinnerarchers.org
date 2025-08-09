@@ -48,3 +48,5 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "./dist/"
           TARGET: ${{ secrets.REMOTE_TARGET }}/www
+          SCRIPT_BEFORE: |
+            rm -rf ${{ secrets.REMOTE_TARGET }}/www
