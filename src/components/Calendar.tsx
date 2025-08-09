@@ -19,7 +19,7 @@ function getMonthConfig(month: number, year: number, offset: number) {
   const monthEnd = endOfMonth(monthStart);
   return {
     start: subDays(monthStart, monthStart.getDay() - 1),
-    weeks: Math.ceil((monthStart.getDay() + monthEnd.getDate()) / 7),
+    weeks: Math.ceil((monthStart.getDay() - 1 + monthEnd.getDate()) / 7),
     month: monthStart,
   };
 }
