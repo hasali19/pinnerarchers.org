@@ -112,25 +112,32 @@ export default function Calendar({ icalSrc }: Props) {
                 {new Date(date).toDateString()}
               </div>
               <div className="px-2">
-                {events.map((event) => (
-                  <div key={event.uid} className="flex my-4 gap-2">
-                    <div className="w-[3px] mx-2 bg-green-700 rounded-sm"></div>
-                    <div className="flex-1 flex gap-2 justify-between">
-                      <div className="flex flex-col justify-center">
-                        <div className="text-lg">{event.summary}</div>
-                        <div className="text-sm text-gray-600">
-                          {event.location}
+                {events.map((event) => {
+                  return (
+                    <div key={event.uid} className="flex my-4 gap-2">
+                      <div className="w-[3px] mx-2 bg-green-700 rounded-sm"></div>
+                      <div className="flex-1 flex gap-2 justify-between">
+                        <div className="flex flex-col justify-center">
+                          <div className="text-lg">{event.summary}</div>
+                          <div className="text-sm text-gray-600">
+                            <a
+                              href={createMapUrl(event.location).toString()}
+                              className="text-green-800 hover:text-green-700 hover:underline active:text-green-700 active:underline"
+                            >
+                              {event.location}
+                            </a>
+                          </div>
+                        </div>
+                        <div className="text-sm text-end shrink-0">
+                          <p>{format(event.startDate.toJSDate(), "h:mm a")}</p>
+                          <p className="text-sm text-gray-500">
+                            {format(event.endDate.toJSDate(), "h:mm a")}
+                          </p>
                         </div>
                       </div>
-                      <div className="text-sm text-end shrink-0">
-                        <p>{format(event.startDate.toJSDate(), "h:mm a")}</p>
-                        <p className="text-sm text-gray-500">
-                          {format(event.endDate.toJSDate(), "h:mm a")}
-                        </p>
-                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))
@@ -202,9 +209,6 @@ export default function Calendar({ icalSrc }: Props) {
 }
 
 function MonthViewEvent({ e }: { e: ICAL.Event }) {
-  const mapUrl = new URL("https://www.google.com/maps/search/?api=1");
-  mapUrl.searchParams.append("query", e.location);
-
   const startDate = e.startDate.toJSDate();
   const endDate = e.endDate.toJSDate();
 
@@ -265,7 +269,7 @@ function MonthViewEvent({ e }: { e: ICAL.Event }) {
                 <dt className="font-bold pt-3 first:pt-0">Location:</dt>
                 <dd className="text-gray-600">
                   <a
-                    href={mapUrl.toString()}
+                    href={createMapUrl(e.location).toString()}
                     className="text-green-700 hover:text-green-600 hover:underline active:text-green-600 active:underline"
                   >
                     {e.location} <ExternalLink className="inline" size={12} />
@@ -313,4 +317,10 @@ function ButtonGroupButton(props: ButtonGroupButtonProps) {
       {props.children}
     </button>
   );
+}
+
+function createMapUrl(location: string) {
+  const mapUrl = new URL("https://www.google.com/maps/search/?api=1");
+  mapUrl.searchParams.append("query", location);
+  return mapUrl;
 }
