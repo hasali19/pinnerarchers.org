@@ -21,14 +21,23 @@ import "../styles/global.css";
       rel="stylesheet"
     />
 
-    <meta property="og:url" content={new URL(Astro.url, Astro.site)} />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Pinner Archers" />
-    <meta
-      property="og:description"
-      content="A target archery club in Pinner and Bushey"
-    />
-    <meta property="og:image" content={new URL("/favicon.png", Astro.site)} />
+    {
+      Astro.site && (
+        <>
+          <meta property="og:url" content={new URL(Astro.url, Astro.site)} />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="Pinner Archers" />
+          <meta
+            property="og:description"
+            content="A target archery club in Pinner and Bushey"
+          />
+          <meta
+            property="og:image"
+            content={new URL("/favicon.png", Astro.site)}
+          />
+        </>
+      )
+    }
   </head>
 
   <body class="min-h-screen">

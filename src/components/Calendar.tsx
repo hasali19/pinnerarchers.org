@@ -1,13 +1,37 @@
-import { format, formatISO, isAfter } from "date-fns";
+import {
+  addDays,
+  addMonths,
+  endOfMonth,
+  format,
+  formatISO,
+  isAfter,
+  isToday,
+  subDays,
+} from "date-fns";
 import ICAL from "ical.js";
-import { useEffect, useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
+
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+function getMonthConfig(month: number, year: number, offset: number) {
+  const monthStart = addMonths(new Date(year, month, 1), offset);
+  const monthEnd = endOfMonth(monthStart);
+  return {
+    start: subDays(monthStart, monthStart.getDay() - 1),
+    weeks: Math.ceil((monthStart.getDay() + monthEnd.getDate()) / 7),
+    month: monthStart,
+  };
+}
 
 export interface Props {
   icalSrc: string;
 }
 
 export default function Calendar({ icalSrc }: Props) {
+  const isSmallScreen = useMediaQuery("(width <= 48rem)");
   const [events, setEvents] = useState<ICAL.Event[]>([]);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -29,7 +53,7 @@ export default function Calendar({ icalSrc }: Props) {
     })();
   }, []);
 
-  const eventsByDate = useMemo(() => {
+  const groupedEvents = useMemo(() => {
     const eventsByDate: Map<string, ICAL.Event[]> = new Map();
 
     for (const event of events) {
@@ -51,38 +75,153 @@ export default function Calendar({ icalSrc }: Props) {
     return null;
   }
 
-  return (
-    <div className="border border-gray-300 rounded-lg overflow-hidden">
-      {Array.from(
-        eventsByDate.map(([date, events]) => (
-          <div key={date}>
-            <div className="p-4 text-sm uppercase text-gray-700 bg-green-50">
-              {new Date(date).toDateString()}
-            </div>
-            <div className="px-2">
-              {events.map((event) => (
-                <div key={event.uid} className="flex my-4 gap-2">
-                  <div className="w-[3px] mx-2 bg-green-700 rounded-sm"></div>
-                  <div className="flex-1 flex gap-2 justify-between">
-                    <div className="flex flex-col justify-center">
-                      <div className="text-lg">{event.summary}</div>
-                      <div className="text-sm text-gray-600">
-                        {event.location}
+  if (isSmallScreen) {
+    return (
+      <div className="border border-gray-300 rounded-lg overflow-hidden">
+        {Array.from(
+          groupedEvents.map(([date, events]) => (
+            <div key={date}>
+              <div className="p-4 text-sm uppercase text-gray-700 bg-green-50">
+                {new Date(date).toDateString()}
+              </div>
+              <div className="px-2">
+                {events.map((event) => (
+                  <div key={event.uid} className="flex my-4 gap-2">
+                    <div className="w-[3px] mx-2 bg-green-700 rounded-sm"></div>
+                    <div className="flex-1 flex gap-2 justify-between">
+                      <div className="flex flex-col justify-center">
+                        <div className="text-lg">{event.summary}</div>
+                        <div className="text-sm text-gray-600">
+                          {event.location}
+                        </div>
+                      </div>
+                      <div className="text-sm text-end shrink-0">
+                        <p>{format(event.startDate.toJSDate(), "h:mm a")}</p>
+                        <p className="text-sm text-gray-500">
+                          {format(event.endDate.toJSDate(), "h:mm a")}
+                        </p>
                       </div>
                     </div>
-                    <div className="text-sm text-end shrink-0">
-                      <p>{format(event.startDate.toJSDate(), "h:mm a")}</p>
-                      <p className="text-sm text-gray-500">
-                        {format(event.endDate.toJSDate(), "h:mm a")}
-                      </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    );
+  }
+
+  const today = new Date();
+  const { start, weeks, month } = getMonthConfig(
+    today.getMonth(),
+    today.getFullYear(),
+    offset
+  );
+
+  return (
+    <div className="grid border border-gray-200 rounded-lg overflow-hidden">
+      <div className="flex justify-between p-6">
+        <div className="text-2xl">
+          <span className="font-bold">{format(month, "MMMM")}</span>{" "}
+          {month.getFullYear()}
+        </div>
+        <div className="inline-flex rounded-lg shadow-2xs">
+          <ButtonGroupButton onClick={() => setOffset((o) => o - 1)}>
+            <ChevronLeft />
+          </ButtonGroupButton>
+          <ButtonGroupButton onClick={() => setOffset(0)}>
+            Today
+          </ButtonGroupButton>
+          <ButtonGroupButton onClick={() => setOffset((o) => o + 1)}>
+            <ChevronRight />
+          </ButtonGroupButton>
+        </div>
+      </div>
+      <div className="grid grid-cols-7 border-b border-gray-100">
+        {DAYS.map((day) => (
+          <div key={day} className="text-xs text-gray-800 text-end p-2">
+            {day}
+          </div>
+        ))}
+      </div>
+      {[...Array(weeks).keys()].map((_, i) => (
+        <div
+          key={i}
+          className="grid grid-cols-7 h-[125px] not-last:border-b border-gray-100"
+        >
+          {DAYS.map((_, j) => {
+            const date = addDays(start, i * 7 + j);
+            const bg = isToday(date) ? "bg-green-50" : "";
+            const eventsKey = formatISO(date, { representation: "date" });
+            const [_k, events] = groupedEvents.find(
+              ([k]) => k === eventsKey
+            ) ?? ["", []];
+            return (
+              <div
+                key={j}
+                className={`not-last:border-e border-gray-100 ${bg}`}
+              >
+                {date.getMonth() === today.getMonth() ? (
+                  <div className="p-2 text-xs text-end">{date.getDate()}</div>
+                ) : (
+                  <div className="p-2 text-xs text-end text-gray-400">
+                    {date.getDate()}
+                  </div>
+                )}
+                {events.map((e) => (
+                  <div className="flex m-1 bg-green-100 rounded-sm overflow-hidden cursor-pointer select-none">
+                    <div className="w-[3px] shrink-0 bg-green-700 rounded-sm"></div>
+                    <div className="flex-1 p-1">
+                      <div className="text-xs font-bold whitespace-nowrap">
+                        {e.summary}
+                      </div>
+                      <div className="text-xs text-gray-800">
+                        {format(e.startDate.toJSDate(), "h:mm a")}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))
-      )}
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
+  );
+}
+
+function useMediaQuery(query: string) {
+  const mediaQuery = window.matchMedia(query);
+  const [matches, setMatches] = useState(mediaQuery.matches);
+
+  useEffect(() => {
+    function onChange(e: MediaQueryListEvent) {
+      setMatches(e.matches);
+    }
+
+    mediaQuery.addEventListener("change", onChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", onChange);
+    };
+  }, []);
+
+  return matches;
+}
+
+interface ButtonGroupButtonProps extends React.PropsWithChildren {
+  onClick?: () => void;
+}
+
+function ButtonGroupButton(props: ButtonGroupButtonProps) {
+  return (
+    <button
+      type="button"
+      className="py-1 px-2 inline-flex justify-center items-center gap-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-xs font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none cursor-pointer"
+      onClick={props.onClick}
+    >
+      {props.children}
+    </button>
   );
 }
