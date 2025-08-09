@@ -5,6 +5,7 @@ import {
   format,
   formatISO,
   isAfter,
+  isPast,
   isToday,
   subDays,
 } from "date-fns";
@@ -47,14 +48,12 @@ export default function Calendar({ icalSrc }: Props) {
         return await res.text();
       })();
 
-      const now = Date.now();
-
       const jcal = ICAL.parse(data);
       const comp = new ICAL.Component(jcal);
       const events = comp
         .getAllSubcomponents("vevent")
         .map((c) => new ICAL.Event(c))
-        .filter((e) => isAfter(e.startDate.toJSDate(), now));
+        .filter((e) => isAfter(e.startDate.toJSDate(), month));
 
       setEvents(events);
     })();
@@ -205,20 +204,33 @@ export default function Calendar({ icalSrc }: Props) {
 function MonthViewEvent({ e }: { e: ICAL.Event }) {
   const mapUrl = new URL("https://www.google.com/maps/search/?api=1");
   mapUrl.searchParams.append("query", e.location);
+
+  const startDate = e.startDate.toJSDate();
+  const endDate = e.endDate.toJSDate();
+
+  const isEnded = isPast(endDate);
+  const bg = isPast(endDate) ? "bg-green-50" : "bg-green-100";
+  const accent = isEnded ? "bg-green-500" : "bg-green-700";
+
+  const textPrimary = isEnded ? "text-gray-500" : "";
+  const textSecondary = isEnded ? "text-gray-400" : "text-gray-800";
+
   return (
     <>
       <button
         className="w-full p-1 text-start"
         popoverTarget={"event-details-" + e.uid}
       >
-        <div className="flex bg-green-100 rounded-sm overflow-hidden cursor-pointer select-none">
-          <div className="w-[3px] shrink-0 bg-green-700 rounded-sm"></div>
+        <div
+          className={`flex ${bg} ${textPrimary} rounded-sm overflow-hidden cursor-pointer select-none`}
+        >
+          <div className={`w-[3px] shrink-0 ${accent} rounded-sm`}></div>
           <div className="flex-1 p-1">
             <div className="text-sm font-bold whitespace-nowrap">
               {e.summary}
             </div>
-            <div className="text-xs text-gray-800 whitespace-nowrap">
-              {format(e.startDate.toJSDate(), "h:mm a")} •{" "}
+            <div className={`text-xs ${textSecondary} whitespace-nowrap`}>
+              {format(startDate, "h:mm a")} •{" "}
               {e.location.match(/(Metropolitan Bushey)|(Tithe Farm)/)
                 ? "Home"
                 : "Away"}
@@ -240,9 +252,7 @@ function MonthViewEvent({ e }: { e: ICAL.Event }) {
             {e.summary}
           </span>
           <div className="pt-1 pb-3 px-4 text-sm">
-            <p className="text-xs">
-              {format(e.startDate.toJSDate(), "h:mm a")}
-            </p>
+            <p className="text-xs">{format(startDate, "h:mm a")}</p>
             {e.description && <p className="mt-3">{e.description}</p>}
             {e.location && (
               <dl className="mt-3">
