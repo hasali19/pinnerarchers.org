@@ -170,17 +170,7 @@ export default function Calendar({ icalSrc }: Props) {
                   </div>
                 )}
                 {events.map((e) => (
-                  <div className="flex m-1 bg-green-100 rounded-sm overflow-hidden cursor-pointer select-none">
-                    <div className="w-[3px] shrink-0 bg-green-700 rounded-sm"></div>
-                    <div className="flex-1 p-1">
-                      <div className="text-xs font-bold whitespace-nowrap">
-                        {e.summary}
-                      </div>
-                      <div className="text-xs text-gray-800">
-                        {format(e.startDate.toJSDate(), "h:mm a")}
-                      </div>
-                    </div>
-                  </div>
+                  <MonthViewEvent key={e.uid} e={e} />
                 ))}
               </div>
             );
@@ -188,6 +178,52 @@ export default function Calendar({ icalSrc }: Props) {
         </div>
       ))}
     </div>
+  );
+}
+
+function MonthViewEvent({ e }: { e: ICAL.Event }) {
+  return (
+    <button
+      className="w-full p-1 text-start"
+      popoverTarget={"event-details-" + e.uid}
+    >
+      <div className="flex bg-green-100 rounded-sm overflow-hidden cursor-pointer select-none">
+        <div className="w-[3px] shrink-0 bg-green-700 rounded-sm"></div>
+        <div className="flex-1 p-1">
+          <div className="text-sm font-bold whitespace-nowrap">{e.summary}</div>
+          <div className="text-xs text-gray-800">
+            {format(e.startDate.toJSDate(), "h:mm a")}
+          </div>
+        </div>
+      </div>
+      <div
+        id={"event-details-" + e.uid}
+        popover="auto"
+        style={{
+          top: "auto",
+          bottom: "anchor(top)",
+          justifySelf: "anchor-center",
+        }}
+      >
+        <div className="w-xs bg-white border border-gray-200 text-start rounded-lg shadow-md overflow-hidden">
+          <span className="pt-3 px-4 block text-lg font-bold text-gray-800">
+            {e.summary}
+          </span>
+          <div className="pt-1 pb-3 px-4 text-sm text-gray-600">
+            <p className="text-xs">
+              {format(e.startDate.toJSDate(), "h:mm a")}
+            </p>
+            {e.description && <p className="mt-3">{e.description}</p>}
+            <dl className="mt-3">
+              <dt className="font-bold pt-3 first:pt-0">Location:</dt>
+              <dd className="text-gray-600 dark:text-neutral-400">
+                {e.location}
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </button>
   );
 }
 
