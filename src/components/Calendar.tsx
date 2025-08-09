@@ -9,7 +9,7 @@ import {
   subDays,
 } from "date-fns";
 import ICAL from "ical.js";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -32,6 +32,13 @@ export default function Calendar({ icalSrc }: Props) {
   const isSmallScreen = useMediaQuery("(width <= 48rem)");
   const [events, setEvents] = useState<ICAL.Event[]>([]);
   const [offset, setOffset] = useState(0);
+
+  const today = useMemo(() => new Date(), []);
+  const { start, weeks, month } = getMonthConfig(
+    today.getMonth(),
+    today.getFullYear(),
+    offset
+  );
 
   useEffect(() => {
     (async () => {
@@ -59,6 +66,10 @@ export default function Calendar({ icalSrc }: Props) {
     for (const event of events) {
       const startDate = event.startDate.toJSDate();
 
+      if (startDate.getMonth() !== month.getMonth()) {
+        continue;
+      }
+
       const date = formatISO(startDate, { representation: "date" });
 
       if (!eventsByDate.has(date)) {
@@ -69,7 +80,7 @@ export default function Calendar({ icalSrc }: Props) {
     }
 
     return [...eventsByDate.entries()].sort();
-  }, [events]);
+  }, [events, month.getMonth()]);
 
   if (events.length === 0) {
     return null;
@@ -78,6 +89,23 @@ export default function Calendar({ icalSrc }: Props) {
   if (isSmallScreen) {
     return (
       <div className="border border-gray-300 rounded-lg overflow-hidden">
+        <div className="flex justify-between p-6">
+          <div className="text-2xl">
+            <span className="font-bold">{format(month, "MMMM")}</span>{" "}
+            {month.getFullYear()}
+          </div>
+          <div className="inline-flex rounded-lg shadow-2xs">
+            <ButtonGroupButton onClick={() => setOffset((o) => o - 1)}>
+              <ChevronLeft />
+            </ButtonGroupButton>
+            <ButtonGroupButton onClick={() => setOffset(0)}>
+              Today
+            </ButtonGroupButton>
+            <ButtonGroupButton onClick={() => setOffset((o) => o + 1)}>
+              <ChevronRight />
+            </ButtonGroupButton>
+          </div>
+        </div>
         {Array.from(
           groupedEvents.map(([date, events]) => (
             <div key={date}>
@@ -111,13 +139,6 @@ export default function Calendar({ icalSrc }: Props) {
       </div>
     );
   }
-
-  const today = new Date();
-  const { start, weeks, month } = getMonthConfig(
-    today.getMonth(),
-    today.getFullYear(),
-    offset
-  );
 
   return (
     <div className="grid border border-gray-200 rounded-lg overflow-hidden">
@@ -182,20 +203,29 @@ export default function Calendar({ icalSrc }: Props) {
 }
 
 function MonthViewEvent({ e }: { e: ICAL.Event }) {
+  const mapUrl = new URL("https://www.google.com/maps/search/?api=1");
+  mapUrl.searchParams.append("query", e.location);
   return (
-    <button
-      className="w-full p-1 text-start"
-      popoverTarget={"event-details-" + e.uid}
-    >
-      <div className="flex bg-green-100 rounded-sm overflow-hidden cursor-pointer select-none">
-        <div className="w-[3px] shrink-0 bg-green-700 rounded-sm"></div>
-        <div className="flex-1 p-1">
-          <div className="text-sm font-bold whitespace-nowrap">{e.summary}</div>
-          <div className="text-xs text-gray-800">
-            {format(e.startDate.toJSDate(), "h:mm a")}
+    <>
+      <button
+        className="w-full p-1 text-start"
+        popoverTarget={"event-details-" + e.uid}
+      >
+        <div className="flex bg-green-100 rounded-sm overflow-hidden cursor-pointer select-none">
+          <div className="w-[3px] shrink-0 bg-green-700 rounded-sm"></div>
+          <div className="flex-1 p-1">
+            <div className="text-sm font-bold whitespace-nowrap">
+              {e.summary}
+            </div>
+            <div className="text-xs text-gray-800 whitespace-nowrap">
+              {format(e.startDate.toJSDate(), "h:mm a")} •{" "}
+              {e.location.match(/(Metropolitan Bushey)|(Tithe Farm)/)
+                ? "Home"
+                : "Away"}
+            </div>
           </div>
         </div>
-      </div>
+      </button>
       <div
         id={"event-details-" + e.uid}
         popover="auto"
@@ -205,25 +235,32 @@ function MonthViewEvent({ e }: { e: ICAL.Event }) {
           justifySelf: "anchor-center",
         }}
       >
-        <div className="w-xs bg-white border border-gray-200 text-start rounded-lg shadow-md overflow-hidden">
+        <div className="w-xs bg-white border border-gray-200 text-start rounded-lg overflow-hidden">
           <span className="pt-3 px-4 block text-lg font-bold text-gray-800">
             {e.summary}
           </span>
-          <div className="pt-1 pb-3 px-4 text-sm text-gray-600">
+          <div className="pt-1 pb-3 px-4 text-sm">
             <p className="text-xs">
               {format(e.startDate.toJSDate(), "h:mm a")}
             </p>
             {e.description && <p className="mt-3">{e.description}</p>}
-            <dl className="mt-3">
-              <dt className="font-bold pt-3 first:pt-0">Location:</dt>
-              <dd className="text-gray-600 dark:text-neutral-400">
-                {e.location}
-              </dd>
-            </dl>
+            {e.location && (
+              <dl className="mt-3">
+                <dt className="font-bold pt-3 first:pt-0">Location:</dt>
+                <dd className="text-gray-600">
+                  <a
+                    href={mapUrl.toString()}
+                    className="text-green-700 hover:text-green-600 hover:underline active:text-green-600 active:underline"
+                  >
+                    {e.location} <ExternalLink className="inline" size={12} />
+                  </a>
+                </dd>
+              </dl>
+            )}
           </div>
         </div>
       </div>
-    </button>
+    </>
   );
 }
 
