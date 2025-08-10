@@ -194,7 +194,7 @@ export default function Calendar({ icalSrc }: Props) {
             return (
               <div
                 key={j}
-                className={`not-last:border-e border-gray-100 ${bg}`}
+                className={`not-last:border-e border-gray-100 ${bg} overflow-auto`}
               >
                 {date.getMonth() === month.getMonth() ? (
                   <div className="p-2 text-xs text-end">{date.getDate()}</div>
