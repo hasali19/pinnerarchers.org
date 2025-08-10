@@ -7,6 +7,7 @@ import {
   isAfter,
   isPast,
   isToday,
+  set,
   subDays,
 } from "date-fns";
 import ICAL from "ical.js";
@@ -106,41 +107,47 @@ export default function Calendar({ icalSrc }: Props) {
           </div>
         </div>
         {Array.from(
-          groupedEvents.map(([date, events]) => (
-            <div key={date}>
-              <div className="p-4 text-sm uppercase text-gray-700 bg-green-50">
-                {new Date(date).toDateString()}
-              </div>
-              <div className="px-2">
-                {events.map((event) => {
-                  return (
-                    <div key={event.uid} className="flex my-4 gap-2">
-                      <div className="w-[3px] mx-2 bg-green-700 rounded-sm"></div>
-                      <div className="flex-1 flex gap-2 justify-between">
-                        <div className="flex flex-col justify-center">
-                          <div className="text-lg">{event.summary}</div>
-                          <div className="text-sm text-gray-600">
-                            <a
-                              href={createMapUrl(event.location).toString()}
-                              className="text-green-800 hover:text-green-700 hover:underline active:text-green-700 active:underline"
-                            >
-                              {event.location}
-                            </a>
+          groupedEvents
+            .filter(([date]) =>
+              isAfter(new Date(date), set(today, { hours: 0, minutes: 0 }))
+            )
+            .map(([date, events]) => (
+              <div key={date}>
+                <div className="p-4 text-sm uppercase text-gray-700 bg-green-50">
+                  {new Date(date).toDateString()}
+                </div>
+                <div className="px-2">
+                  {events.map((event) => {
+                    return (
+                      <div key={event.uid} className="flex my-4 gap-2">
+                        <div className="w-[3px] mx-2 bg-green-700 rounded-sm"></div>
+                        <div className="flex-1 flex gap-2 justify-between">
+                          <div className="flex flex-col justify-center">
+                            <div className="text-lg">{event.summary}</div>
+                            <div className="text-sm text-gray-600">
+                              <a
+                                href={createMapUrl(event.location).toString()}
+                                className="text-green-800 hover:text-green-700 hover:underline active:text-green-700 active:underline"
+                              >
+                                {event.location}
+                              </a>
+                            </div>
+                          </div>
+                          <div className="text-sm text-end shrink-0">
+                            <p>
+                              {format(event.startDate.toJSDate(), "h:mm a")}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {format(event.endDate.toJSDate(), "h:mm a")}
+                            </p>
                           </div>
                         </div>
-                        <div className="text-sm text-end shrink-0">
-                          <p>{format(event.startDate.toJSDate(), "h:mm a")}</p>
-                          <p className="text-sm text-gray-500">
-                            {format(event.endDate.toJSDate(), "h:mm a")}
-                          </p>
-                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))
+            ))
         )}
       </div>
     );
