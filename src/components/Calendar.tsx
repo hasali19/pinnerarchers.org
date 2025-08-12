@@ -7,6 +7,7 @@ import {
   isAfter,
   isPast,
   isToday,
+  max,
   set,
   subDays,
 } from "date-fns";
@@ -109,7 +110,10 @@ export default function Calendar({ icalSrc }: Props) {
         {Array.from(
           groupedEvents
             .filter(([date]) =>
-              isAfter(new Date(date), set(today, { hours: 0, minutes: 0 }))
+              isAfter(
+                new Date(date),
+                max([set(today, { hours: 0, minutes: 0 }), month])
+              )
             )
             .map(([date, events]) => (
               <div key={date}>
