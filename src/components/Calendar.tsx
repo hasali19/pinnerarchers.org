@@ -128,6 +128,11 @@ export default function Calendar({ icalSrc }: Props) {
                         <div className="flex-1 flex gap-2 justify-between">
                           <div className="flex flex-col justify-center">
                             <div className="text-lg">{event.summary}</div>
+                            {event.description && (
+                              <div className="text-sm text-gray-600 mb-1">
+                                {event.description}
+                              </div>
+                            )}
                             <div className="text-sm text-gray-600">
                               <a
                                 href={createMapUrl(event.location).toString()}
