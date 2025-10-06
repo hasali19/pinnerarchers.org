@@ -1,6 +1,7 @@
 import {
   addDays,
   addMonths,
+  compareAsc,
   endOfMonth,
   format,
   formatISO,
@@ -109,11 +110,12 @@ export default function Calendar({ icalSrc }: Props) {
         </div>
         {Array.from(
           groupedEvents
-            .filter(([date]) =>
-              isAfter(
-                new Date(date),
-                max([set(today, { hours: 0, minutes: 0 }), month])
-              )
+            .filter(
+              ([date]) =>
+                compareAsc(
+                  new Date(date),
+                  max([set(today, { hours: 0, minutes: 0 }), month])
+                ) >= 0
             )
             .map(([date, events]) => (
               <div key={date}>
