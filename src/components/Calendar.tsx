@@ -2,6 +2,7 @@ import {
   addDays,
   addMonths,
   compareAsc,
+  endOfDay,
   endOfMonth,
   format,
   formatISO,
@@ -88,6 +89,7 @@ export default function Calendar({ icalSrc }: Props) {
     return null;
   }
 
+
   if (isSmallScreen) {
     return (
       <div className="border border-gray-300 rounded-lg overflow-hidden">
@@ -113,7 +115,7 @@ export default function Calendar({ icalSrc }: Props) {
             .filter(
               ([date]) =>
                 compareAsc(
-                  new Date(date),
+                  endOfDay(new Date(date)),
                   max([set(today, { hours: 0, minutes: 0 }), month])
                 ) >= 0
             )
